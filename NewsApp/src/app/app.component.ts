@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from './news.service';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +9,7 @@ import { NewsService } from './news.service';
 export class AppComponent implements OnInit {
   title = 'news-app';
   articles;
-  searchedKeyword: string;
+  search: string;
   constructor(private newsService: NewsService){}
   ngOnInit(){
     this.newsService.getNews().subscribe((data)=>{
