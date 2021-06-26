@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Card</title>
+</head>
+
+<body>
+ 
+    <div class="toolbar">
+      <img
+        width="40"
+        
+        src="../assets/newspaper.svg"
+      />
+      <span>News</span>
+      
+        
+        
+          <input type="text" class="search"  placeholder="&#xf002; Search" [(ngModel)]="searchedKeyword">
+       
+       
+    </div>
+ 
+  <div class="container" >
+    <div class="card" *ngFor="let article of articles | filter:searchedKeyword">
+      <div class="box">
+        <div class="content">
+          <img class="cardImage" src="{{article.urlToImage}}" alt="" width="50px">
+          
+          <h6>{{article.title}}</h6>
+          <p>{{article.description}}</p>
+          <a href="{{article.url}}"> Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
