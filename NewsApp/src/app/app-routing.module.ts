@@ -3,15 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
-import { ReadMoreComponent } from './read-more/read-more.component';
+import { ReadMoreComponent } from './home/read-more/read-more.component';
 
 
-const routes: Routes = [ 
+const routes: Routes = [
   {path: '', redirectTo: '/home',  pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  { path: 'read-more', component:ReadMoreComponent },
-{path: 'app', component:AppComponent}
-  
+  {path:'home/read-more/:id', component: ReadMoreComponent},
 ];
 
 @NgModule({
@@ -20,5 +18,5 @@ imports: [RouterModule.forRoot(routes,
 exports: [RouterModule]
 })
 export class AppRoutingModule {
- 
+
  }

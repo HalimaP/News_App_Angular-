@@ -10,18 +10,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'news-app';
-  articles;
-  filterTerm: string;
   constructor(private newsService: NewsService,  private route: ActivatedRoute,private router:Router){}
-  ngOnInit(){
-    
-    this.newsService.getNews().subscribe((data)=>{
-      console.log(data);
-      this.articles = data['articles'];
-    });
-    
-  }
-  goToDetails(articleId: any) {
-    this.router.navigate(['localhost:4200/readMore', articleId]);
-  }
+  ngOnInit(){ }
 }

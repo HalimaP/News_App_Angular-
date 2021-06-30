@@ -1,45 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NewsService } from '../news.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent implements OnInit, OnDestroy {
+  private routeSub: Subscription;
   title = 'news-app';
   articles;
-  id;
+  articleId;
   filterTerm: string;
+  shopId: number;
+  newsSub: Subscription;
   constructor(private newsService: NewsService,  private route: ActivatedRoute,private router:Router){}
   ngOnInit(){
-    this.route.params.subscribe((params:Params) => {
-      this.id = +params['id']
-    });
-    this.newsService.getNews().subscribe((data)=>{
-      console.log(data);
-      this.articles = data['articles'];
-      
-      this.getArticle(this.id)
-    });
-   
-  }
-  getArticle(id:number){
-    for(let i = 0; i<= this.articles.length; i++){
-      this.id = i
-
+  this.newsSub = this.newsService.news.subscribe(newsData=> {
+    this.articles= newsData;
+    console.log('articles::',this.articles)
+    if (this.articles== null){
+     this.getArticles();
     }
-    id= this.id
-    console.log(id)
-    return id 
-   
+  })
   }
-  activateJob(id){
-    this.router.navigate(['read-more', id])
+  ngOnDestroy(){
+    if(this.newsSub){
+      this.newsSub.unsubscribe();
+    }
+  }
+  onReadMoreClick(index){
+this.router.navigate(['home', 'read-more', index])
+  }
 
-  }
-  
+getArticles(){
+  this.newsService.getNews().subscribe((data)=>{
+
+});
+}
+
 }
