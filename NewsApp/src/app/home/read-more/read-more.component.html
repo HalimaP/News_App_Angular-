@@ -1,40 +1,52 @@
 <!-- Source, author, title, description, image, published at date and the content -->
 
-<div class="main">
-    <div id="header" class="box">
-        <ul id="nav">
-            <li class="current"><a href="index.html">Homepage</a></li>
-        </ul>
-    </div>
-    <div id="section" class="box">
-        <div id="content" *ngIf="articleData.length > 0">
-            <ul class="articles box">
-                <li>
-                    <h2><a href="#">{{articleData.title}}</a></h2>
-                    <div class="article-info box">
 
-                        <p class="f-left">Description: {{articleData.description}} </p>
-                    </div>
+<div class="container">
 
-                    <p><img src="{{articleData.urlToImage}}" alt="" class="f-left" />{{articleData.content}}</p>
+    <nav>
+        <button> <a href="index.html">Home</a></button>
+        <!-- <h1><i class="fas fa-bars"></i></h1>
+        <p class="title"><i class="fas fa-igloo"></i></p> -->
 
-                </li>
+    </nav>
+
+    <div class="grid">
+        <div class="article_body">
+            <div class="article_body_box">
+                <h1 class="heading medium_header">{{articleData.title}}</h1>
+                <p class="sub-heading">
+                    {{articleData.description}}
+                </p>
 
 
-            </ul>
+                <img class="bodyImage" src="{{articleData.urlToImage}}">
+                <p>{{articleData.content}}</p>
 
+
+
+            </div>
         </div>
-        <div id="aside">
 
-            <ul class="menu">
-                <li>Publised at: {{articleData.publishedAt}} </li>
-                <li>Author: {{articleData.author}}</li>
-                <li>Source: {{articleData.source.id}}</li>
+        <div class="article_sidebar-container">
+            <div class="article_sidebar">
+                <img class="thumb--large" src="{{articleData.urlToImage}}">
 
-            </ul>
+                <p class="sideBarParagraph">Publised at: {{articleData.publishedAt | date : 'fullDate'}}</p>
+
+                <p class="sideBarParagraph">
+                    Author: {{articleData.author}}
+                </p>
+                <p class="sideBarParagraph">
+                    Source: {{articleData.source.name}}
+                </p>
+
+                <hr />
 
 
 
+            </div>
         </div>
+
+
     </div>
 </div>

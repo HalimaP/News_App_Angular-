@@ -1,34 +1,25 @@
-<html lang="en">
+<div class="toolbar">
+    <img class="toolbarImg" src="../assets/newspaper.svg" />
+    <input type="text" class="search" placeholder="Search..." #SEARCH>
+</div>
+<div class="loader" *ngIf="articles == null"></div>
+<div class="container">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card</title>
-</head>
+    <div class="card" *ngFor="let article of articles let i = index">
+        <div class="box">
+            <div class="content">
+                <img class="cardImage" src="{{article.urlToImage}}" alt="" class="image">
 
-<body>
-    <div class="toolbar">
-        <img class="toolbarImg" src="../assets/newspaper.svg" />
-        <input type="text" placeholder="Search..." [(ngModel)]="filterTerm">
-    </div>
-    <div class="container">
-        <div class="card" *ngFor="let article of articles | filter:filterTerm; let i = index">
-            <div class="box">
-                <div class="content">
-                    <img class="cardImage" src="{{article.urlToImage}}" alt="" class="image">
+                <h6 class="articleTitle">{{article.title}}</h6>
+                <p class="articleDescription">{{article.description}}</p>
 
-                    <h6>{{article.title}}</h6>
-                    <p>{{article.description}}</p>
-                    <!-- <a routerLink="/read-more/i" class="dash-item">Read more</a> -->
-
-                    <button (click)=" onReadMoreClick(i)"> read more </button>
-                    <!-- <a href="{{article.url}}"> Read More</a> -->
-                </div>
+                <button class="readMore" (click)=" onReadMoreClick(i)"> Read more ... </button>
             </div>
         </div>
     </div>
+    <footer>
+        <button *ngIf="articles.length > 0" class="loadMore" (click)="loadMore()">Load more ...</button>
 
-</body>
+    </footer>
 
-</html>
+</div>
