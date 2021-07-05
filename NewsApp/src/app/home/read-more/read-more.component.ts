@@ -6,40 +6,34 @@ import { NewsService } from '../../news.service';
 @Component({
   selector: 'app-read-more',
   templateUrl: './read-more.component.html',
-  styleUrls: ['./read-more.component.css']
+  styleUrls: ['./read-more.component.css'],
 })
 export class ReadMoreComponent implements OnInit {
-  newsSub:Subscription
+  newsSub: Subscription;
   articleIndex: number;
   articleData: any;
   title: string = '';
-  constructor(private newsService: NewsService, private router: Router, private route:ActivatedRoute) {
-    this.articleData = this.router.getCurrentNavigation().extras.state
+  constructor(
+    private newsService: NewsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.articleData = this.router.getCurrentNavigation().extras.state;
   }
 
   ngOnInit(): void {
-    console.log("TEST");
-     this.route.params.subscribe((params) => {
-      this.articleIndex= params['id'];
+    console.log('TEST');
+    this.route.params.subscribe((params) => {
+      this.articleIndex = params['id'];
       this.title = params['title'];
       console.log('title', this.title);
     });
-    if(this.articleData == null && this.title !==''){
-      this.newsService.getArticleByTitle(this.title).subscribe((data)=>{
+    if (this.articleData == null && this.title !== '') {
+      this.newsService.getArticleByTitle(this.title).subscribe((data) => {
         this.articleData = data;
       });
     }
-    // this.articleData= this.newsService.news(this.articleIndex).subscribe(newsData=> {
-    //   this.articleData= newsData;
-      // console.log('articles::',this.articles)
-      // if (this.articleData== null){
-      //  this.getArticles();
-      // }
-    // })
-
-    console.log('Article',this.articleData);
-    console.log(this.newsService.getNewsByIndex(this.articleIndex))
-
+    console.log('Article', this.articleData);
+    console.log(this.newsService.getNewsByIndex(this.articleIndex));
   }
-
 }

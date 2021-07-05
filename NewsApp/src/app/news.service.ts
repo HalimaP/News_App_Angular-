@@ -46,6 +46,7 @@ map((newsData:any)=>{
 })
 );
 }
+// Fetching single article to show in readMore Component
 public getArticleByTitle(title:string){
   return this.httpClient.get(` https://newsapi.org/v2/everything?q=Apple&title=${title}&from=2021-06-29&sortBy=popularity&apiKey=${this.API_KEY}`).pipe(
     take(1),

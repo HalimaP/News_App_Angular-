@@ -12,26 +12,30 @@ import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators'
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('SEARCH') SEARCH: ElementRef;
+
   private routeSub: Subscription;
   title = 'news-app';
   articles;
   articleId;
-  filterTerm: string;
-  shopId: number;
   newsSub: Subscription;
   page;
   pageSize;
   lastSearchTerm;
-
+  sorted = new Date();
   constructor(private newsService: NewsService,  private route: ActivatedRoute,private router:Router){}
   ngOnInit(){
   this.newsSub = this.newsService.news.subscribe(newsData=> {
     this.articles= newsData;
     console.log('articles::',this.articles)
+
+
     if (this.articles== null){
      this.getArticles();
+
+
     }
   });
+
 
   }
 
@@ -47,10 +51,11 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       debounceTime(250), //in ms
       distinctUntilChanged(),
       tap((text)=> {
-        console.log(this.SEARCH.nativeElement.value)
+
         this.page =1;
-        this.lastSearchTerm = this.SEARCH.nativeElement;
+        this.lastSearchTerm = this.SEARCH.nativeElement.value;
         this.newsService.fetchMoreNews(this.pageSize, this.page, this.lastSearchTerm, true).subscribe();
+        console.log(this.SEARCH.nativeElement.value)
       })
     )
     .subscribe();}
@@ -65,12 +70,13 @@ getArticles(){
 }
 loadMore(){
   this.page = this.page +1;
+
+  console.log(this.lastSearchTerm)
   this.newsService.fetchMoreNews(this.pageSize, this.page,this.lastSearchTerm).subscribe((data)=>{
     console.log('Added page +');
+  this.sorted =this.articles.sort((x, y) => +new Date(x.createdAt) - +new Date(y.createdAt))
+
   });
 }
-onSearch(event){
-  console.log('SEARCH TERm::: ', event.target.value);
-  this.page=1;
-}
+
 }

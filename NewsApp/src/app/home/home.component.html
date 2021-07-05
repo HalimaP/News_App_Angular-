@@ -1,5 +1,6 @@
 <div class="toolbar">
     <img class="toolbarImg" src="../assets/newspaper.svg" />
+    <p> Last news added:{{sorted | date : "fullDate"}}</p>
     <input type="text" class="search" placeholder="Search..." #SEARCH>
 </div>
 <div class="loader" *ngIf="articles == null"></div>
@@ -7,17 +8,17 @@
 
     <div class="card" *ngFor="let article of articles let i = index">
         <div class="box">
+
             <div class="content">
                 <img class="cardImage" src="{{article.urlToImage}}" alt="" class="image">
 
                 <h6 class="articleTitle">{{article.title}}</h6>
                 <p class="articleDescription">{{article.description}}</p>
-
-                <button class="readMore" (click)=" onReadMoreClick(i)"> Read more ... </button>
+                <button class="readMore" (click)=" onReadMoreClick(i)"> READ FULL ARTICLE </button>
             </div>
         </div>
     </div>
-    <footer>
+    <footer *ngIf="articles">
         <button *ngIf="articles.length > 0" class="loadMore" (click)="loadMore()">Load more ...</button>
 
     </footer>
