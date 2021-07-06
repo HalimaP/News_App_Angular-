@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class NewsService {
   private $news = new BehaviorSubject<any>(null);
   public showSpinner: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  API_KEY ='d785086fd3eb4dafa8a5bd867aba5e68';
+  API_KEY ='5b13873dbf214e11a5866644aaed8166';
   get news(){
     return this.$news.asObservable();
   }
